@@ -107,7 +107,7 @@ body { background:#0E0E12; display:flex; justify-content:center; align-items:cen
 .tc-rating { background:rgba(255,255,255,0.16); border:1px solid rgba(255,255,255,0.12); border-radius:8px; padding:3px 8px; display:inline-flex; gap:8px; align-items:center; align-self:flex-start; }
 .tc-rv { font-size:12px; font-weight:700; color:#fff; }
 .tc-badges { display:flex; flex-wrap:wrap; gap:4px; }
-.tc-badge { border-radius:20px; padding:3px 9px; font-size:10px; font-weight:600; white-space:nowrap; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2); color:rgba(255,255,255,0.9); }
+.tc-badge { border-radius:20px; padding:4px 10px; font-size:10px; font-weight:600; white-space:nowrap; background:rgba(120,80,255,0.35); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border:1px solid rgba(160,120,255,0.4); color:#fff; }
 .tc-badge-neutral { background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2); color:rgba(255,255,255,0.9); }
 .tc-badge-green { background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2); color:rgba(255,255,255,0.9); }
 
@@ -335,7 +335,7 @@ body { background:#0E0E12; display:flex; justify-content:center; align-items:cen
 <!-- MATCHES -->
 <div class="scr off" id="scr-matches">
   <div class="m-header">
-    <h1 class="m-title">Топ-3 по вашему запросу</h1>
+    <h1 class="m-title">Ваши репетиторы</h1>
     <p class="m-sub">Мы подобрали лучших специалистов исходя из ваших предпочтений</p>
   </div>
   <div class="carousel-outer">
@@ -389,7 +389,7 @@ body { background:#0E0E12; display:flex; justify-content:center; align-items:cen
       <!-- Top-right: паспорт проверен only, pale, no icon -->
       <div style="position:absolute;top:14px;right:14px;z-index:2;">
         <div style="display:flex;align-items:center;gap:5px;background:rgba(0,0,0,0.28);backdrop-filter:blur(8px);border-radius:20px;padding:5px 11px 5px 8px;">
-          <svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6.5" fill="#18D15C"/><path d="M4 7L6 9.2L10 4.8" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+          <svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6.5" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="1.2"/><path d="M4 7L6 9.2L10 4.8" stroke="rgba(255,255,255,0.75)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
           <span style="font-size:11px;font-weight:600;color:rgba(255,255,255,0.85);line-height:1;">Паспорт проверен</span>
         </div>
       </div>
@@ -411,12 +411,12 @@ body { background:#0E0E12; display:flex; justify-content:center; align-items:cen
       <!-- Service summary: price + rating + badges -->
       <div style="background:#FAFAFA;border:1.5px solid var(--gray-2);border-radius:18px;padding:16px 18px;margin-bottom:20px;box-shadow:0 1px 4px rgba(0,0,0,0.05);">
         <!-- Row 1: price left, rating chip right -->
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:12px;">
           <div style="display:flex;align-items:baseline;gap:5px;">
             <span id="prof-body-price" style="font-size:28px;font-weight:800;color:var(--black);letter-spacing:-0.6px;"></span>
             <span style="font-size:14px;font-weight:500;color:var(--gray-4);">/ час</span>
           </div>
-          <div id="prof-summary-rating" style="display:flex;align-items:center;gap:5px;background:#fff;border:1.5px solid var(--gray-2);border-radius:12px;padding:6px 10px;box-shadow:0 1px 3px rgba(0,0,0,0.06);"></div>
+          <div id="prof-summary-rating" style="display:flex;align-items:center;gap:4px;background:#fff;border:1.5px solid var(--gray-2);border-radius:12px;padding:5px 10px;box-shadow:0 1px 3px rgba(0,0,0,0.06);flex-shrink:0;"></div>
         </div>
         <!-- Row 2: service badges -->
         <div id="prof-hero-badges" style="display:flex;flex-wrap:wrap;gap:7px;"></div>
@@ -491,7 +491,7 @@ body { background:#0E0E12; display:flex; justify-content:center; align-items:cen
       </div>
     </div>
   </div>
-  <div class="prof-foot"><button class="btn-red" onclick="showChatFromProfile()">Обсудить детали</button></div>
+  <div class="prof-foot"><button class="btn-red" id="prof-discuss-btn" onclick="showChatFromProfile()">Обсудить детали</button></div>
 </div>
 
 <!-- HOME -->
@@ -773,13 +773,21 @@ function showProfile(id){
   const hv2=document.getElementById('prof-hero-reviews'); if(hv2) hv2.textContent=t.reviews+' отзывов';
   // Summary block rating chip
   var sr=document.getElementById('prof-summary-rating');
-  if(sr) sr.innerHTML='<svg width="13" height="12" viewBox="0 0 12 11"><path d="M6 .5L7.5 4H11.5L8.5 6.3L9.5 10L6 7.8L2.5 10L3.5 6.3L.5 4H4.5L6 .5Z" fill="#FFB800"/></svg>'
-    +'<span style="font-size:14px;font-weight:700;color:var(--black);">'+t.rating+'</span>'
+  if(sr) sr.innerHTML='<svg width="12" height="11" viewBox="0 0 12 11"><path d="M6 .5L7.5 4H11.5L8.5 6.3L9.5 10L6 7.8L2.5 10L3.5 6.3L.5 4H4.5L6 .5Z" fill="#FFB800"/></svg>'
+    +'<span style="font-size:15px;font-weight:800;color:var(--black);letter-spacing:-0.3px;">'+t.rating+'</span>'
     +'<span style="font-size:12px;color:var(--gray-3);">·</span>'
-    +'<span style="font-size:13px;font-weight:500;color:var(--gray-4);">'+t.reviews+' отзывов</span>';
+    +'<span style="font-size:12px;font-weight:500;color:var(--gray-4);">'+t.reviews+' отз.</span>';
   const bp=document.getElementById('prof-body-price'); if(bp) bp.textContent=t.price;
   var d1=document.getElementById('prof-doc1'); if(d1) d1.src=DOCS[(t.id-1)%3];
+  var btn=document.getElementById('prof-discuss-btn');
+  if(btn) btn.innerHTML=t.msg
+    ? 'Сообщений <span style="background:rgba(255,255,255,0.25);border-radius:10px;padding:1px 8px;font-size:14px;font-weight:800;margin-left:6px;">1</span>'
+    : 'Обсудить детали';
   var d1=document.getElementById('prof-doc1'); if(d1) d1.src=DOCS[(t.id-1)%3];
+  var btn=document.getElementById('prof-discuss-btn');
+  if(btn) btn.innerHTML=t.msg
+    ? 'Сообщений <span style="background:rgba(255,255,255,0.25);border-radius:10px;padding:1px 8px;font-size:14px;font-weight:800;margin-left:6px;">1</span>'
+    : 'Обсудить детали';
   const hp=document.getElementById('prof-hero-price');
   if(hp) hp.innerHTML='<span class="price-amt">'+t.price+'</span><span class="price-unit">/ час</span>';
 
@@ -850,14 +858,9 @@ function makeCardHTML(t,i){
     +'<div class="tcard-grad"></div>'
     +'<div class="tcard-blur"></div>'
     +'<div class="tcard-body">'
-    +'<div class="tcard-top">'
+    +'<div class="tcard-top" style="align-items:flex-start;">'
     +'<div class="online-pip"><div class="green-dot"></div><span class="pip-txt">Онлайн</span></div>'
-    +(t.msg?'<div style="display:flex;align-items:center;gap:5px;background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.22);border-radius:10px;padding:3px 5px 3px 8px;">'
-      +'<span style="font-size:10px;font-weight:600;color:rgba(255,255,255,0.9);line-height:1;">Откликнулся</span>'
-      +'<div style="width:16px;height:16px;background:#E72541;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">'
-      +'<span style="font-size:10px;font-weight:800;color:#fff;line-height:1;">1</span>'
-      +'</div>'
-      +'</div>':'')
+    +(t.badges&&t.badges.length?'<div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">'+t.badges.slice(0,3).map(function(b){return '<span style="background:rgba(120,80,255,0.38);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(160,120,255,0.45);border-radius:20px;padding:3px 9px;font-size:10px;font-weight:600;color:#fff;white-space:nowrap;">'+b.t+'</span>';}).join('')+'</div>':'')
     +'</div>'
     +'<div class="tcard-mid"></div>'
     +'<div class="tcard-bot">'
@@ -867,8 +870,14 @@ function makeCardHTML(t,i){
     +'<div style="display:flex;align-items:center;gap:3px;"><svg width="11" height="11" viewBox="0 0 11 11"><path d="M5.5 .5L7 4H11L8 6.3 9.1 10 5.5 7.8 1.9 10 3 6.3 0 4H4L5.5 .5Z" fill="rgba(255,255,255,0.95)"/></svg><span class="tc-rv">'+t.rating+'</span></div>'
     +'<div style="display:flex;align-items:center;gap:3px;"><svg width="11" height="10" viewBox="0 0 11 10"><path d="M2 0.5H9C9.8 0.5 10.5 1.2 10.5 2V6C10.5 6.8 9.8 7.5 9 7.5H6.5L4.5 9.5V7.5H2C1.2 7.5 0.5 6.8 0.5 6V2C0.5 1.2 1.2 0.5 2 0.5Z" fill="rgba(255,255,255,0.9)"/></svg><span class="tc-rv">'+t.reviews+'</span></div>'
     +'</div>'
-    +(t.badges?'<div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:2px;">'+t.badges.map(function(b){return '<span class="tc-badge">'+b.t+'</span>';}).join('')+'</div>':'')
+
     +'</div>'
+    +(t.msg?'<div style="background:rgba(255,255,255,0.92);border-radius:10px;padding:6px 10px;display:flex;align-items:center;gap:8px;margin-bottom:4px;">'
+      +'<span style="flex:1;font-size:12px;font-weight:500;color:#0E0E12;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+t.msg+'</span>'
+      +'<div style="min-width:18px;height:18px;background:#E72541;border-radius:9px;display:flex;align-items:center;justify-content:center;padding:0 4px;flex-shrink:0;">'
+      +'<span style="font-size:10px;font-weight:800;color:#fff;">1</span>'
+      +'</div>'
+      +'</div>':'')
     +'<div class="tc-actions">'
     +'<button class="tc-btn-d" onclick="event.stopPropagation();showProfile('+t.id+')">Подробнее</button>'
     +'<button class="tc-btn-c" onclick="event.stopPropagation();showChat('+t.id+')">Обсудить</button>'
@@ -949,7 +958,7 @@ function renderWiz(){
   const optsEl=document.getElementById('wiz-opts');
   if(s.type==='name'){
     var inp='<input style="width:100%;background:#F6F6F8;border:none;border-radius:12px;padding:14px 16px;font-size:17px;font-weight:500;font-family:Manrope,sans-serif;outline:none;margin-bottom:16px;" placeholder="'+s.placeholder+'">';
-    var cb='<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;"><span style="font-size:17px;font-weight:500;color:#0E0E12;">'+s.checkbox+'</span><div style="width:28px;height:28px;background:#F6F6F8;border:1.5px solid #EBEBEF;border-radius:8px;cursor:pointer;"></div></div>';
+    var cb='<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;cursor:pointer;" onclick="toggleWizCheckbox(this)"><span style="font-size:17px;font-weight:500;color:#0E0E12;">'+s.checkbox+'</span><div class="wiz-checkbox" style="width:28px;height:28px;background:#F6F6F8;border:1.5px solid #EBEBEF;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"></div></div>';
     optsEl.innerHTML=inp+cb;
   } else if(s.type==='textarea'){
     optsEl.innerHTML='<textarea style="width:100%;background:var(--gray-1);border:none;border-radius:12px;padding:14px 16px;font-size:17px;font-family:var(--font);outline:none;resize:none;height:120px;color:var(--gray-4);" placeholder="'+s.placeholder+'"></textarea>';
@@ -976,6 +985,19 @@ function renderWiz(){
     });
     if(s.hasInput) rows+='<div style="margin-top:8px;"><input style="width:100%;background:var(--gray-1);border:none;border-radius:12px;padding:14px 16px;font-size:17px;font-family:var(--font);outline:none;" placeholder="'+s.hasInput+'"></div>';
     optsEl.innerHTML=rows;
+  }
+}
+function toggleWizCheckbox(row){
+  var box=row.querySelector('.wiz-checkbox');
+  var on=box.style.background==='rgb(14, 14, 18)';
+  if(on){
+    box.style.background='#F6F6F8';
+    box.style.borderColor='#EBEBEF';
+    box.innerHTML='';
+  } else {
+    box.style.background='#0E0E12';
+    box.style.borderColor='#0E0E12';
+    box.innerHTML='<svg width="14" height="11" viewBox="0 0 14 11"><path d="M1.5 5.5L5.5 9.5L12.5 1.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>';
   }
 }
 function toggleWizCb(row){
