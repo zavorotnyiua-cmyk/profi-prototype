@@ -335,8 +335,8 @@ body { background:#0E0E12; display:flex; justify-content:center; align-items:cen
 <!-- MATCHES -->
 <div class="scr off" id="scr-matches">
   <div class="m-header">
-    <h1 class="m-title">Ваши репетиторы</h1>
-    <p class="m-sub">Мы подобрали лучших специалистов исходя из ваших предпочтений</p>
+    <h1 class="m-title">Самые подходящие репетиторы</h1>
+    <p class="m-sub">Они уже выполняли похожие задачи и получили отличные отзывы</p>
   </div>
   <div class="carousel-outer">
     <div class="carousel" id="carousel"></div>
@@ -412,11 +412,11 @@ body { background:#0E0E12; display:flex; justify-content:center; align-items:cen
       <div style="background:#FAFAFA;border:1.5px solid var(--gray-2);border-radius:18px;padding:16px 18px;margin-bottom:20px;box-shadow:0 1px 4px rgba(0,0,0,0.05);">
         <!-- Row 1: price left, rating chip right -->
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:12px;">
-          <div style="display:flex;align-items:baseline;gap:5px;">
+          <div style="display:flex;align-items:baseline;gap:5px;flex-shrink:0;">
             <span id="prof-body-price" style="font-size:28px;font-weight:800;color:var(--black);letter-spacing:-0.6px;"></span>
             <span style="font-size:14px;font-weight:500;color:var(--gray-4);">/ час</span>
           </div>
-          <div id="prof-summary-rating" style="display:flex;align-items:center;gap:4px;background:#fff;border:1.5px solid var(--gray-2);border-radius:12px;padding:5px 10px;box-shadow:0 1px 3px rgba(0,0,0,0.06);flex-shrink:0;"></div>
+          <div id="prof-summary-rating" style="display:flex;align-items:center;gap:4px;background:#fff;border:1.5px solid var(--gray-2);border-radius:12px;padding:5px 10px;box-shadow:0 1px 3px rgba(0,0,0,0.06);flex-shrink:0;margin-left:auto;"></div>
         </div>
         <!-- Row 2: service badges -->
         <div id="prof-hero-badges" style="display:flex;flex-wrap:wrap;gap:7px;"></div>
@@ -865,12 +865,15 @@ function makeCardHTML(t,i){
     +'<div class="tcard-mid"></div>'
     +'<div class="tcard-bot">'
     +'<div><p class="tc-name">'+t.name+'</p><p class="tc-cred">'+t.creds+'</p></div>'
-    +'<div class="tc-price"><span class="tc-amt">'+t.price+'</span><span class="tc-unit">/ час</span></div>'
-    +'<div class="tc-rating">'
-    +'<div style="display:flex;align-items:center;gap:3px;"><svg width="11" height="11" viewBox="0 0 11 11"><path d="M5.5 .5L7 4H11L8 6.3 9.1 10 5.5 7.8 1.9 10 3 6.3 0 4H4L5.5 .5Z" fill="rgba(255,255,255,0.95)"/></svg><span class="tc-rv">'+t.rating+'</span></div>'
-    +'<div style="display:flex;align-items:center;gap:3px;"><svg width="11" height="10" viewBox="0 0 11 10"><path d="M2 0.5H9C9.8 0.5 10.5 1.2 10.5 2V6C10.5 6.8 9.8 7.5 9 7.5H6.5L4.5 9.5V7.5H2C1.2 7.5 0.5 6.8 0.5 6V2C0.5 1.2 1.2 0.5 2 0.5Z" fill="rgba(255,255,255,0.9)"/></svg><span class="tc-rv">'+t.reviews+'</span></div>'
+    +'<div style="display:flex;align-items:center;justify-content:space-between;margin-top:4px;">'
+      +'<div class="tc-price"><span class="tc-amt">'+t.price+'</span><span class="tc-unit">/ час</span></div>'
+      +'<div style="display:flex;align-items:center;gap:5px;background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.22);border-radius:20px;padding:3px 9px;">'
+        +'<svg width="10" height="10" viewBox="0 0 11 11"><path d="M5.5 .5L7 4H11L8 6.3 9.1 10 5.5 7.8 1.9 10 3 6.3 0 4H4L5.5 .5Z" fill="#FFD60A"/></svg>'
+        +'<span style="font-size:11px;font-weight:700;color:#fff;">'+t.rating+'</span>'
+        +'<span style="font-size:10px;color:rgba(255,255,255,0.5);">·</span>'
+        +'<span style="font-size:11px;font-weight:500;color:rgba(255,255,255,0.82);">'+t.reviews+'</span>'
+      +'</div>'
     +'</div>'
-
     +'</div>'
     +(t.msg?'<div style="background:rgba(255,255,255,0.92);border-radius:10px;padding:6px 10px;display:flex;align-items:center;gap:8px;margin-bottom:4px;">'
       +'<span style="flex:1;font-size:12px;font-weight:500;color:#0E0E12;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+t.msg+'</span>'
