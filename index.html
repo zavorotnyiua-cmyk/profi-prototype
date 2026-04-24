@@ -98,16 +98,16 @@ body { background:#0E0E12; display:flex; justify-content:center; align-items:cen
 .green-dot { width:7px; height:7px; background:#18D15C; border-radius:50%; }
 .pip-txt { font-size:11px; font-weight:600; color:#fff; }
 .tcard-mid { flex:1; }
-.tcard-bot { display:flex; flex-direction:column; gap:5px; }
+.tcard-bot { display:flex; flex-direction:column; }
 .tc-name { font-size:16px; font-weight:800; color:#fff; letter-spacing:-0.3px; }
 .tc-cred { font-size:11px; font-weight:500; color:rgba(255,255,255,0.82); }
 .tc-price { display:flex; align-items:baseline; gap:3px; }
-.tc-amt { font-size:18px; font-weight:800; color:#fff; letter-spacing:-0.3px; }
-.tc-unit { font-size:11px; font-weight:500; color:rgba(255,255,255,0.7); }
+.tc-amt { font-size:22px; font-weight:800; color:#fff; letter-spacing:-0.5px; }
+.tc-unit { font-size:14px; font-weight:500; color:rgba(255,255,255,0.7); }
 .tc-rating { background:rgba(255,255,255,0.16); border:1px solid rgba(255,255,255,0.12); border-radius:8px; padding:3px 8px; display:inline-flex; gap:8px; align-items:center; align-self:flex-start; }
 .tc-rv { font-size:12px; font-weight:700; color:#fff; }
 .tc-badges { display:flex; flex-wrap:wrap; gap:4px; }
-.tc-badge { border-radius:20px; padding:4px 10px; font-size:10px; font-weight:600; white-space:nowrap; background:rgba(120,80,255,0.35); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border:1px solid rgba(160,120,255,0.4); color:#fff; }
+.tc-badge { border-radius:20px; padding:5px 12px; font-size:11px; font-weight:600; white-space:nowrap; background:rgba(120,80,255,0.35); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border:1px solid rgba(160,120,255,0.4); color:#fff; }
 .tc-badge-neutral { background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2); color:rgba(255,255,255,0.9); }
 .tc-badge-green { background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2); color:rgba(255,255,255,0.9); }
 
@@ -795,7 +795,7 @@ function showProfile(id){
   // Hero overlay badges (white glass style — not used on photo anymore)
   const hb=document.getElementById('prof-hero-badges');
   if(hb&&t.badges) hb.innerHTML=t.badges.map(function(b){
-    return '<span style="background:transparent;border:1px solid var(--gray-2);border-radius:20px;padding:4px 11px;font-size:12px;font-weight:500;color:var(--black);">'+b.t+'</span>';
+    return '<span style="background:rgba(120,80,255,0.1);border:1px solid rgba(120,80,255,0.3);border-radius:20px;padding:4px 11px;font-size:12px;font-weight:600;color:#6B3FD4;">'+b.t+'</span>';
   }).join('');
   const pb=document.getElementById('prof-badges');
   if(pb&&t.badges) pb.innerHTML=t.badges.map(function(b){
@@ -864,18 +864,18 @@ function makeCardHTML(t,i){
     +'</div>'
     +'<div class="tcard-mid"></div>'
     +'<div class="tcard-bot">'
-    +'<div><p class="tc-name">'+t.name+'</p><p class="tc-cred">'+t.creds+'</p></div>'
-    +'<div style="display:flex;align-items:center;justify-content:space-between;margin-top:4px;">'
+    +'<div style="margin-bottom:5px;"><p class="tc-name">'+t.name+'</p><p class="tc-cred">'+t.creds+'</p></div>'
+    +'<div style="display:flex;align-items:center;justify-content:space-between;margin-top:5px;margin-bottom:5px;">'
       +'<div class="tc-price"><span class="tc-amt">'+t.price+'</span><span class="tc-unit">/ час</span></div>'
       +'<div style="display:flex;align-items:center;gap:5px;background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.22);border-radius:20px;padding:3px 9px;">'
         +'<svg width="10" height="10" viewBox="0 0 11 11"><path d="M5.5 .5L7 4H11L8 6.3 9.1 10 5.5 7.8 1.9 10 3 6.3 0 4H4L5.5 .5Z" fill="#FFD60A"/></svg>'
-        +'<span style="font-size:11px;font-weight:700;color:#fff;">'+t.rating+'</span>'
+        +'<span style="font-size:13px;font-weight:700;color:#fff;">'+t.rating+'</span>'
         +'<span style="font-size:10px;color:rgba(255,255,255,0.5);">·</span>'
-        +'<span style="font-size:11px;font-weight:500;color:rgba(255,255,255,0.82);">'+t.reviews+'</span>'
+        +'<span style="font-size:13px;font-weight:500;color:rgba(255,255,255,0.82);">'+t.reviews+'</span>'
       +'</div>'
     +'</div>'
     +'</div>'
-    +(t.msg?'<div style="background:rgba(255,255,255,0.92);border-radius:10px;padding:6px 10px;display:flex;align-items:center;gap:8px;margin-bottom:4px;">'
+    +(t.msg?'<div style="background:rgba(255,255,255,0.92);border-radius:10px;padding:6px 10px;display:flex;align-items:center;gap:8px;margin-top:14px;margin-bottom:4px;">'
       +'<span style="flex:1;font-size:12px;font-weight:500;color:#0E0E12;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+t.msg+'</span>'
       +'<div style="min-width:18px;height:18px;background:#E72541;border-radius:9px;display:flex;align-items:center;justify-content:center;padding:0 4px;flex-shrink:0;">'
       +'<span style="font-size:10px;font-weight:800;color:#fff;">1</span>'
